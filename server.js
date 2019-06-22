@@ -8,6 +8,9 @@ connectDB();
 
 const app = express();
 
+//init req.body middleware
+app.use(express.json({extended: false}));
+
 //define routes
 app.use('/api/users', Users);
 app.use('/api/contacts', Contacts);
