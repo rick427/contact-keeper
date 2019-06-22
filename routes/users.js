@@ -13,6 +13,7 @@ router.post('/', [
     check('name', 'A name is required').not().isEmpty(),
     check('email', 'Please enter a valid email').isEmail(),
     check('password', 'Please enter a password with 6 or more characters').isLength({min: 6})
+
 ], async (req, res) => {
     const errors = validationResult(req);
 
@@ -41,7 +42,7 @@ router.post('/', [
 
       await user.save();
       
-      //object to pass in the token
+      //create token 
       const payload = {user: {id: user.id}};
 
       jwt.sign(payload, config.get('jwtSecret'), {
