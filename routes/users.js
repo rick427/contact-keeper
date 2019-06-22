@@ -41,7 +41,7 @@ router.post('/', [
 
       await user.save();
       
-      //object to end in the token
+      //object to pass in the token
       const payload = {user: {id: user.id}};
 
       jwt.sign(payload, config.get('jwtSecret'), {
