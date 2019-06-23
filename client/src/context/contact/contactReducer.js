@@ -5,7 +5,6 @@ import {
     FILTER_CONTACTS,
     SET_CURRENT,
     CLEAR_FILTER,
-    CLEAR_CONTACT,
     CLEAR_CURRENT
 } from '../types';
 
