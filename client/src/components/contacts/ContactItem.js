@@ -2,12 +2,15 @@ import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import ContactContext from '../../context/contact/contactContext';
 
-const ContactItem = ({contact: {id, name, email, phone, type}}) => {
+const ContactItem = ({contact}) => {
     const contactContext = useContext(ContactContext);
-    const {deleteContact} = contactContext;
+    const {deleteContact, setCurrent, clearCurrent} = contactContext;
+
+    const {id, name, email, phone, type} = contact;
 
     const handleDelete = () => {
        deleteContact(id);
+       clearCurrent();
     }
 
     return (
@@ -29,7 +32,7 @@ const ContactItem = ({contact: {id, name, email, phone, type}}) => {
                 )}
             </ul>
             <p>
-                <button className="btn btn-dark btn-sm">Edit</button>
+                <button onClick={() => setCurrent(contact)} className="btn btn-dark btn-sm">Edit</button>
                 <button onClick={handleDelete} className="btn btn-danger btn-sm">Delete</button>
             </p>
         </div>
