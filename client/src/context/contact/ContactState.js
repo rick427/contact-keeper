@@ -58,6 +58,7 @@ const ContactState = props => {
     }
 
     //Set current Contact
+    
 
     //Clear Current Contacts
 
