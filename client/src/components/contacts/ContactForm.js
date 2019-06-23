@@ -1,8 +1,24 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import ContactContext from '../../context/contact/contactContext';
 
 const ContactForm = () => {
     const contactContext = useContext(ContactContext);
+
+    const {addContacts, updateContact, current, clearCurrent} = contactContext;
+
+    useEffect(() => {
+        if(current !== null){
+            setContact(current);
+        }
+        else{
+            setContact({
+                name: '',
+                email: '',
+                phone: '',
+                type: 'personal'
+            })
+        }
+    }, [contactContext, current]);
 
     const [contact, setContact] = useState({
         name: '',
@@ -10,7 +26,10 @@ const ContactForm = () => {
         phone: '',
         type: 'personal'
     });
-    const {name, email, phone, type} = contact;
+
+    const clearAll = () => {
+        clearCurrent();
+    }
 
     const handleChange = e => {
         setContact({...contact, [e.target.name]: e.target.value});
@@ -18,18 +37,19 @@ const ContactForm = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        contactContext.addContacts(contact);
-        setContact({
-            name: '',
-            email: '',
-            phone: '',
-            type: 'personal'
-        })
+        if(current === null){
+          addContacts(contact);
+        }
+        else{
+          updateContact(contact);
+          clearAll();
+        }
     }
-
+    
+    const {name, email, phone, type} = contact;
     return (
         <form onSubmit={handleSubmit}>
-            <h2 className="text-primary">Add Contact</h2>
+            <h2 className="text-primary">{current ? 'Edit Contact' : 'Add Contact'}</h2>
             <input 
                type="text" 
                placeholder="Name" 
@@ -68,8 +88,19 @@ const ContactForm = () => {
             /> Professional{' '}
 
             <div>
-                <input type="submit" value="Add Contact" className="btn btn-primary" />
+                <input 
+                   type="submit" 
+                   value={current ? 'Update Contact' : 'Add Contact'} 
+                   className="btn btn-primary btn-block" 
+                />
             </div>
+            {current && (
+                <div>
+                    <button className="btn btn-light btn-block" onClick={clearAll}>
+                        Clear
+                    </button>
+                </div>
+            )}
         </form>
     )
 }
