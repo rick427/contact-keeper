@@ -7,8 +7,33 @@ const Navbar = ({title ,icon}) => {
     const authContext = useContext(AuthContext);
     const  {isAuthenticated, logout, user} = authContext;
 
+    const Logout = () => {
+        logout();
+    }
+
     const authLinks = (
         <Fragment>
+            <li>Hello {user && user.name}</li>
+            <li>
+                <a onClick={Logout} href="#!">
+                    <i className="fas fa-sign-out-alt"/> <span className="hide-sm">Logout</span>
+                </a>
+            </li>
+            <li>
+                <Link to="/about">About</Link>
+            </li>
+        </Fragment>
+    )
+
+    const guestLinks = (
+        <Fragment>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+            <li>
+                <Link to="/login">Login</Link>
+            </li>
+        </Fragment>
     )
 
     return (
@@ -18,18 +43,7 @@ const Navbar = ({title ,icon}) => {
                 {title}
             </h1>
             <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/about">About</Link>
-                </li>
-                <li>
-                    <Link to="/register">Register</Link>
-                </li>
-                <li>
-                    <Link to="/login">Login</Link>
-                </li>
+               {isAuthenticated ? authLinks : guestLinks}
             </ul>
         </div>
     )
