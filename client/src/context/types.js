@@ -8,6 +8,7 @@ export const FILTER_CONTACTS = 'FILTER_CONTACTS';
 export const CLEAR_FILTER = 'CLEAR_FILTER'; 
 export const SET_ALERT = 'SET_ALERT'; 
 export const REMOVE_ALERT = 'REMOVE_ALERT'; 
+export const CONTACT_ERROR = 'CONTACT_ERROR';
 
 // AUTH TYPES
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
